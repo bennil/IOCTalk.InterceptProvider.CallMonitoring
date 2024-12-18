@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<!--<Nullable>enable</Nullable>-->
+		<LangVersion>latest</LangVersion>
+		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+	</PropertyGroup>
+
+
+	<PropertyGroup>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+	</PropertyGroup>
+	
+	
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0" PrivateAssets="all" />
+	</ItemGroup>
+
+
+	<!-- Nuget analyzer settings: -->
+	<ItemGroup>
+		<None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <ProjectReference Include="..\IOCTalk.InterceptProvider.CallMonitoring.Common\IOCTalk.InterceptProvider.CallMonitoring.Common.csproj" />
+	</ItemGroup>
+	
+	<ItemGroup>
+	  <Reference Include="IOCTalk.InterceptProvider.SourceGenBase">
+	    <HintPath>..\lib\IOCTalk.InterceptProvider.SourceGenBase.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
+</Project>

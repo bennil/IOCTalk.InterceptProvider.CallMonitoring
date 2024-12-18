@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CallMonitoringSourceGen.TestConsole.Interface
+{
+    public interface IMyDemoService2
+    {
+        ICollection GetCollection(int number);
+
+        Task ExecuteAsync(string test);
+
+        Task<string> GetDataAsync(string test);
+
+
+        //int OutTestMethod(int input, out int output2);
+    }
+}

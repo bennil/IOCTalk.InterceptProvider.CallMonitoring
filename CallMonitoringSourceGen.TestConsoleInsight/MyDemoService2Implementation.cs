@@ -1,0 +1,33 @@
+﻿using CallMonitoringSourceGen.TestConsole.Interface;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CallMonitoringSourceGen.TestConsoleInsight
+{
+    internal class MyDemoService2Implementation : IMyDemoService2
+    {
+        public async Task ExecuteAsync(string test)
+        {
+            if (test == "long-running")
+            {
+                await Task.Delay(3000);
+            }
+            else if (test == "throw-exception")
+                throw new InvalidOperationException("Demo exception");
+        }
+
+        public ICollection GetCollection(int number)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<string> GetDataAsync(string test)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

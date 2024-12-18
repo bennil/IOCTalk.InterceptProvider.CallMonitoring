@@ -1,0 +1,33 @@
+﻿<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>ioctalk-interception-callmonitoring-insight</id>
+		<version>1.0.0</version>
+		<title>ioctalk-insight-webhost</title>
+		<authors>ben</authors>
+		<owners>ben</owners>
+		<description>IOC-Talk interception source generator for monitoring service calls featuring the IOCTalk.Insight web frontend.</description>
+		<releaseNotes></releaseNotes>
+		<projectUrl>https://github.com/bennil/ioctalk</projectUrl>
+		<license type="expression">Apache-2.0</license>
+		<readme>docs/README.md</readme>
+		<dependencies>
+			<group targetFramework="net8.0">
+				<dependency id="ioctalk-codegen-binary-json-tcp" version="2.4.14" />
+				<dependency id="ioctalk-insight-webhost" version="1.0.4" />
+			</group>
+		</dependencies>
+	</metadata>
+	<files>
+		<!-- Copy compiled files manually to target (loosely coupled assemblies) -->
+		<file src="bin\Release\net8.0\*.dll" target="lib\net8.0" />
+		<file src="bin\Release\net8.0\*.pdb" target="lib\net8.0" />
+
+		<file src="..\IOCTalk.Insight.SessionInfo\bin\Release\net8.0\IOCTalk.Insight.SessionInfo*.dll" target="lib\net8.0" />
+		<file src="..\IOCTalk.Insight.SessionInfo\bin\Release\net8.0\IOCTalk.Insight.SessionInfo*.pdb" target="lib\net8.0" />
+		
+		<file src="..\IOCTalk.InterceptProvider.CallMonitoring\bin\Release\netstandard2.0\*" target="analyzers/dotnet/cs" />
+
+		<file src="..\README.md" target="docs\" />
+	</files>
+</package>
