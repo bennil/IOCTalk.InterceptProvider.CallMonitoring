@@ -5,6 +5,7 @@
 		<!--<Nullable>enable</Nullable>-->
 		<LangVersion>latest</LangVersion>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 
@@ -24,13 +25,8 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+	  <ProjectReference Include="..\..\IOCTalk.InterceptProvider.SourceGenBase\IOCTalk.InterceptProvider.SourceGenBase\IOCTalk.InterceptProvider.SourceGenBase.csproj" />
 	  <ProjectReference Include="..\IOCTalk.InterceptProvider.CallMonitoring.Common\IOCTalk.InterceptProvider.CallMonitoring.Common.csproj" />
-	</ItemGroup>
-	
-	<ItemGroup>
-	  <Reference Include="IOCTalk.InterceptProvider.SourceGenBase">
-	    <HintPath>..\lib\IOCTalk.InterceptProvider.SourceGenBase.dll</HintPath>
-	  </Reference>
 	</ItemGroup>
 
 </Project>

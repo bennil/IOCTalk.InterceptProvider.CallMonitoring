@@ -23,27 +23,27 @@ namespace CallMonitoringSourceGen.TestConsole
 		{
 			try
 			{
-			    Interlocked.Increment(ref sayHello_int_InvokeCount);
+			    Interlocked.Increment(ref sayHello_1226284721_InvokeCount);
 				interceptedService.SayHello(id);
 			}
 			catch (Exception ex)
 			{
-			    Interlocked.Increment(ref sayHello_int_ExceptionCount);
+			    Interlocked.Increment(ref sayHello_1226284721_ExceptionCount);
 			    this.lastException = ex;
 			    throw;
 			}
 			finally
 			{
-			    Interlocked.Increment(ref sayHello_int_InvokeCompletedCount);
+			    Interlocked.Increment(ref sayHello_1226284721_InvokeCompletedCount);
 			}
 		}
 
 		Exception? lastException;
 
-		string sayHello_int_MethodName = "SayHello(int id)";
-		long sayHello_int_InvokeCount;
-		long sayHello_int_InvokeCompletedCount;
-		int sayHello_int_ExceptionCount;
+		string sayHello_1226284721_MethodName = "SayHello(int id)";
+		long sayHello_1226284721_InvokeCount;
+		long sayHello_1226284721_InvokeCompletedCount;
+		int sayHello_1226284721_ExceptionCount;
 
 
 		public Type MonitoringInterface => typeof(IMyTestService1);
@@ -51,7 +51,7 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot()
 		{
-			yield return (sayHello_int_MethodName, sayHello_int_InvokeCount, sayHello_int_InvokeCompletedCount, sayHello_int_ExceptionCount);
+			yield return (sayHello_1226284721_MethodName, sayHello_1226284721_InvokeCount, sayHello_1226284721_InvokeCompletedCount, sayHello_1226284721_ExceptionCount);
 		}
 
 		public void Dispose()

@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>ioctalk-interception-callmonitoring-insight</id>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 		<title>ioctalk-insight-webhost</title>
 		<authors>ben</authors>
 		<owners>ben</owners>
@@ -23,8 +23,8 @@
 		<file src="bin\Release\net8.0\*.dll" target="lib\net8.0" />
 		<file src="bin\Release\net8.0\*.pdb" target="lib\net8.0" />
 
-		<file src="..\IOCTalk.Insight.SessionInfo\bin\Release\net8.0\IOCTalk.Insight.SessionInfo*.dll" target="lib\net8.0" />
-		<file src="..\IOCTalk.Insight.SessionInfo\bin\Release\net8.0\IOCTalk.Insight.SessionInfo*.pdb" target="lib\net8.0" />
+		<!--<file src="..\IOCTalk.InterceptProvider.CallMonitoring.Insight\bin\Release\net8.0\IOCTalk.InterceptProvider*.dll" target="lib\net8.0" />
+		<file src="..\IOCTalk.InterceptProvider.CallMonitoring.Insight\bin\Release\net8.0\IOCTalk.InterceptProvider*.pdb" target="lib\net8.0" />-->
 		
 		<file src="..\IOCTalk.InterceptProvider.CallMonitoring\bin\Release\netstandard2.0\*" target="analyzers/dotnet/cs" />
 

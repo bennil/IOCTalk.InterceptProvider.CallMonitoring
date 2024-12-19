@@ -29,5 +29,10 @@ namespace CallMonitoringSourceGen.TestConsoleInsight
         {
             throw new NotImplementedException();
         }
+
+        public Task<IDataItem> ModifyData(IDataItem dataItem)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

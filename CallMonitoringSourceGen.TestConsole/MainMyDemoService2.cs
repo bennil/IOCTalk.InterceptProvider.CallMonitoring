@@ -25,5 +25,10 @@ namespace CallMonitoringSourceGen.TestConsole
         {
             return Task<string>.FromResult(test);
         }
+
+        public Task<IDataItem> ModifyData(IDataItem dataItem)
+        {
+            return Task.FromResult(dataItem);
+        }
     }
 }

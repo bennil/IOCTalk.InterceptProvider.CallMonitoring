@@ -14,6 +14,7 @@ namespace CallMonitoringSourceGen.TestConsole.Interface
 
         Task<string> GetDataAsync(string test);
 
+        Task<IDataItem> ModifyData(IDataItem dataItem);
 
         //int OutTestMethod(int input, out int output2);
     }

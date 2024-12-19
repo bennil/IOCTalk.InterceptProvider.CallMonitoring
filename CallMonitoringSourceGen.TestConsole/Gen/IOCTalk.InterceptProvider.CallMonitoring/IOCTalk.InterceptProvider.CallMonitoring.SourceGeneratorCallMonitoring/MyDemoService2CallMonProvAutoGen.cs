@@ -24,18 +24,18 @@ namespace CallMonitoringSourceGen.TestConsole
 			System.Collections.ICollection result = default;
 			try
 			{
-			    Interlocked.Increment(ref getCollection_int_InvokeCount);
+			    Interlocked.Increment(ref getCollection_1226284721_InvokeCount);
 				result = interceptedService.GetCollection(number);
 			}
 			catch (Exception ex)
 			{
-			    Interlocked.Increment(ref getCollection_int_ExceptionCount);
+			    Interlocked.Increment(ref getCollection_1226284721_ExceptionCount);
 			    this.lastException = ex;
 			    throw;
 			}
 			finally
 			{
-			    Interlocked.Increment(ref getCollection_int_InvokeCompletedCount);
+			    Interlocked.Increment(ref getCollection_1226284721_InvokeCompletedCount);
 			}
 			return result;
 		}
@@ -44,18 +44,18 @@ namespace CallMonitoringSourceGen.TestConsole
 		{
 			try
 			{
-			    Interlocked.Increment(ref executeAsync_string_InvokeCount);
+			    Interlocked.Increment(ref executeAsync_983953243_InvokeCount);
 				await interceptedService.ExecuteAsync(test);
 			}
 			catch (Exception ex)
 			{
-			    Interlocked.Increment(ref executeAsync_string_ExceptionCount);
+			    Interlocked.Increment(ref executeAsync_983953243_ExceptionCount);
 			    this.lastException = ex;
 			    throw;
 			}
 			finally
 			{
-			    Interlocked.Increment(ref executeAsync_string_InvokeCompletedCount);
+			    Interlocked.Increment(ref executeAsync_983953243_InvokeCompletedCount);
 			}
 		}
 
@@ -64,38 +64,64 @@ namespace CallMonitoringSourceGen.TestConsole
 			String result = default;
 			try
 			{
-			    Interlocked.Increment(ref getDataAsync_string_InvokeCount);
+			    Interlocked.Increment(ref getDataAsync_983953243_InvokeCount);
 				result = await interceptedService.GetDataAsync(test);
 			}
 			catch (Exception ex)
 			{
-			    Interlocked.Increment(ref getDataAsync_string_ExceptionCount);
+			    Interlocked.Increment(ref getDataAsync_983953243_ExceptionCount);
 			    this.lastException = ex;
 			    throw;
 			}
 			finally
 			{
-			    Interlocked.Increment(ref getDataAsync_string_InvokeCompletedCount);
+			    Interlocked.Increment(ref getDataAsync_983953243_InvokeCompletedCount);
+			}
+			return result;
+		}
+
+		public async System.Threading.Tasks.Task<CallMonitoringSourceGen.TestConsole.Interface.IDataItem> ModifyData(CallMonitoringSourceGen.TestConsole.Interface.IDataItem dataItem)
+		{
+			CallMonitoringSourceGen.TestConsole.Interface.IDataItem result = default;
+			try
+			{
+			    Interlocked.Increment(ref modifyData_229559583_InvokeCount);
+				result = await interceptedService.ModifyData(dataItem);
+			}
+			catch (Exception ex)
+			{
+			    Interlocked.Increment(ref modifyData_229559583_ExceptionCount);
+			    this.lastException = ex;
+			    throw;
+			}
+			finally
+			{
+			    Interlocked.Increment(ref modifyData_229559583_InvokeCompletedCount);
 			}
 			return result;
 		}
 
 		Exception? lastException;
 
-		string getCollection_int_MethodName = "GetCollection(int number)";
-		long getCollection_int_InvokeCount;
-		long getCollection_int_InvokeCompletedCount;
-		int getCollection_int_ExceptionCount;
+		string getCollection_1226284721_MethodName = "GetCollection(int number)";
+		long getCollection_1226284721_InvokeCount;
+		long getCollection_1226284721_InvokeCompletedCount;
+		int getCollection_1226284721_ExceptionCount;
 
-		string executeAsync_string_MethodName = "ExecuteAsync(string test)";
-		long executeAsync_string_InvokeCount;
-		long executeAsync_string_InvokeCompletedCount;
-		int executeAsync_string_ExceptionCount;
+		string executeAsync_983953243_MethodName = "ExecuteAsync(string test)";
+		long executeAsync_983953243_InvokeCount;
+		long executeAsync_983953243_InvokeCompletedCount;
+		int executeAsync_983953243_ExceptionCount;
 
-		string getDataAsync_string_MethodName = "GetDataAsync(string test)";
-		long getDataAsync_string_InvokeCount;
-		long getDataAsync_string_InvokeCompletedCount;
-		int getDataAsync_string_ExceptionCount;
+		string getDataAsync_983953243_MethodName = "GetDataAsync(string test)";
+		long getDataAsync_983953243_InvokeCount;
+		long getDataAsync_983953243_InvokeCompletedCount;
+		int getDataAsync_983953243_ExceptionCount;
+
+		string modifyData_229559583_MethodName = "ModifyData(CallMonitoringSourceGen.TestConsole.Interface.IDataItem dataItem)";
+		long modifyData_229559583_InvokeCount;
+		long modifyData_229559583_InvokeCompletedCount;
+		int modifyData_229559583_ExceptionCount;
 
 
 		public Type MonitoringInterface => typeof(IMyDemoService2);
@@ -103,9 +129,10 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot()
 		{
-			yield return (getCollection_int_MethodName, getCollection_int_InvokeCount, getCollection_int_InvokeCompletedCount, getCollection_int_ExceptionCount);
-			yield return (executeAsync_string_MethodName, executeAsync_string_InvokeCount, executeAsync_string_InvokeCompletedCount, executeAsync_string_ExceptionCount);
-			yield return (getDataAsync_string_MethodName, getDataAsync_string_InvokeCount, getDataAsync_string_InvokeCompletedCount, getDataAsync_string_ExceptionCount);
+			yield return (getCollection_1226284721_MethodName, getCollection_1226284721_InvokeCount, getCollection_1226284721_InvokeCompletedCount, getCollection_1226284721_ExceptionCount);
+			yield return (executeAsync_983953243_MethodName, executeAsync_983953243_InvokeCount, executeAsync_983953243_InvokeCompletedCount, executeAsync_983953243_ExceptionCount);
+			yield return (getDataAsync_983953243_MethodName, getDataAsync_983953243_InvokeCount, getDataAsync_983953243_InvokeCompletedCount, getDataAsync_983953243_ExceptionCount);
+			yield return (modifyData_229559583_MethodName, modifyData_229559583_InvokeCount, modifyData_229559583_InvokeCompletedCount, modifyData_229559583_ExceptionCount);
 		}
 
 		public void Dispose()
