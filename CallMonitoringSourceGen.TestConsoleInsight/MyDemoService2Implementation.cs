@@ -20,7 +20,7 @@ namespace CallMonitoringSourceGen.TestConsoleInsight
                 throw new InvalidOperationException("Demo exception");
         }
 
-        public ICollection GetCollection(int number)
+        public ICollection GetCollection(int number, out int test)
         {
             throw new NotImplementedException();
         }

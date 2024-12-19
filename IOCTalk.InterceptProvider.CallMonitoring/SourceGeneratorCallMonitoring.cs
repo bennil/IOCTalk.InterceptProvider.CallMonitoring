@@ -18,7 +18,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
         public SourceGeneratorCallMonitoring()
         {
 #if DEBUG
-            // only when referenced lib is debug compiled
+            // only when referenced lib is debug compiled 
             this.attachDebugger = false;
             this.isVerboseLogging = false;
 #endif

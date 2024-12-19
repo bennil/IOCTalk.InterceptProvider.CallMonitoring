@@ -14,8 +14,9 @@ namespace CallMonitoringSourceGen.TestConsole
         {
         }
 
-        public ICollection GetCollection(int number)
+        public ICollection GetCollection(int number, out int x)
         {
+            x = 0;
             List<int> test = new List<int>();
             test.Add(number);
             return test;

@@ -50,9 +50,9 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                 html.AppendLine("<th>Service</th>");
                 html.AppendLine("<th>Instance Count</th>");
                 html.AppendLine("<th>Invoke Count</th>");
-                html.AppendLine("<th>Invoke Completed Count</th>");
+                //html.AppendLine("<th>Invoke Completed Count</th>");
                 html.AppendLine("<th>Invoke Pending</th>");
-                html.AppendLine("<th>Exception Count</th>");
+                html.AppendLine("<th>Propagated Exceptions</th>");
                 html.AppendLine("</tr>");
 
                 foreach (var item in callMonitoringHost.MonitorSources)
@@ -67,7 +67,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                     html.AppendLine($"<td><a href=\"?{QueryNameService}={item.MonitoringInterface.FullName}\">{item.MonitoringInterface.FullName}</a></td>");
                     html.AppendLine($"<td>{item.SourceItems.Count}</td>");
                     html.AppendLine($"<td>{invokeCount}</td>");
-                    html.AppendLine($"<td>{invokeCompletedCount}</td>");
+                    //html.AppendLine($"<td>{invokeCompletedCount}</td>");
                     html.AppendLine($"<td>{invokeCount - invokeCompletedCount}</td>");
                     html.AppendLine($"<td>{exceptionCount}</td>");
                     html.AppendLine("</tr>");
@@ -112,7 +112,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                             html.AppendLine("<th>Invoke Count</th>");
                             html.AppendLine("<th>Invoke Completed Count</th>");
                             html.AppendLine("<th>Invoke Pending</th>");
-                            html.AppendLine("<th>Exception Count</th>");
+                            html.AppendLine("<th>Propagated Exceptions</th>");
                             html.AppendLine("</tr>");
 
                             foreach (var item in snapshot)
@@ -145,25 +145,25 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                         html.AppendLine("<th>Invoke Count</th>");
                         html.AppendLine("<th>Invoke Completed Count</th>");
                         html.AppendLine("<th>Invoke Pending</th>");
-                        html.AppendLine("<th>Exception Count</th>");
+                        html.AppendLine("<th>Propagated Exceptions</th>");
                         html.AppendLine("</tr>");
 
 
                         foreach (var srcItem in sourceContainer.SourceItems)
                         {
-                                var snapshot = srcItem.GetCallMonitoringSnapshot();
+                            var snapshot = srcItem.GetCallMonitoringSnapshot();
 
-                                var invokeCount = snapshot.Sum(s => s.InvokeCount);
-                                var invokeCompletedCount = snapshot.Sum(s => s.InvokeCompletedCount);
-                                var exceptionCount = snapshot.Sum(s => s.ExceptionCount);
+                            var invokeCount = snapshot.Sum(s => s.InvokeCount);
+                            var invokeCompletedCount = snapshot.Sum(s => s.InvokeCompletedCount);
+                            var exceptionCount = snapshot.Sum(s => s.ExceptionCount);
 
-                                html.AppendLine("<tr>");
-                                html.AppendLine($"<td><a href=\"?{QueryNameService}={srcItem.MonitoringInterface.FullName}&{QueryNameInstanceId}={srcItem.InterceptedServiceObject.GetHashCode()}\">{srcItem.InterceptedServiceObject.GetType().FullName}</a></td>");
-                                html.AppendLine($"<td>{invokeCount}</td>");
-                                html.AppendLine($"<td>{invokeCompletedCount}</td>");
-                                html.AppendLine($"<td>{invokeCount - invokeCompletedCount}</td>");
-                                html.AppendLine($"<td>{exceptionCount}</td>");
-                                html.AppendLine("</tr>");
+                            html.AppendLine("<tr>");
+                            html.AppendLine($"<td><a href=\"?{QueryNameService}={srcItem.MonitoringInterface.FullName}&{QueryNameInstanceId}={srcItem.InterceptedServiceObject.GetHashCode()}\">{srcItem.InterceptedServiceObject.GetType().FullName}</a></td>");
+                            html.AppendLine($"<td>{invokeCount}</td>");
+                            html.AppendLine($"<td>{invokeCompletedCount}</td>");
+                            html.AppendLine($"<td>{invokeCount - invokeCompletedCount}</td>");
+                            html.AppendLine($"<td>{exceptionCount}</td>");
+                            html.AppendLine("</tr>");
                         }
 
                         html.AppendLine("</table>");
@@ -174,7 +174,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
             resp.HtmlData = html.ToString();
 
 
-            return ValueTask.FromResult<IInsightResponse?>(resp);
+            return ValueTask.FromResult<IInsightResponse>(resp);
         }
     }
 }

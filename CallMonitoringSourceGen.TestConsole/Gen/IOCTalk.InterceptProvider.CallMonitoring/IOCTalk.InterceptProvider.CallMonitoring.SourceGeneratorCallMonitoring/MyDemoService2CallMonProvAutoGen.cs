@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using CallMonitoringSourceGen.TestConsole.Interface;
 using IOCTalk.InterceptProvider.CallMonitoring.Common;
 
@@ -19,23 +21,23 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		public object InterceptedServiceObject => interceptedService;
 
-		public System.Collections.ICollection GetCollection(Int32 number)
+		public System.Collections.ICollection GetCollection(Int32 number, out Int32 test)
 		{
 			System.Collections.ICollection result = default;
 			try
 			{
-			    Interlocked.Increment(ref getCollection_1226284721_InvokeCount);
-				result = interceptedService.GetCollection(number);
+			    Interlocked.Increment(ref getCollection_1482904633_InvokeCount);
+				result = interceptedService.GetCollection(number, out test);
 			}
 			catch (Exception ex)
 			{
-			    Interlocked.Increment(ref getCollection_1226284721_ExceptionCount);
+			    Interlocked.Increment(ref getCollection_1482904633_ExceptionCount);
 			    this.lastException = ex;
 			    throw;
 			}
 			finally
 			{
-			    Interlocked.Increment(ref getCollection_1226284721_InvokeCompletedCount);
+			    Interlocked.Increment(ref getCollection_1482904633_InvokeCompletedCount);
 			}
 			return result;
 		}
@@ -103,10 +105,10 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		Exception? lastException;
 
-		string getCollection_1226284721_MethodName = "GetCollection(int number)";
-		long getCollection_1226284721_InvokeCount;
-		long getCollection_1226284721_InvokeCompletedCount;
-		int getCollection_1226284721_ExceptionCount;
+		string getCollection_1482904633_MethodName = "GetCollection(int number, int test)";
+		long getCollection_1482904633_InvokeCount;
+		long getCollection_1482904633_InvokeCompletedCount;
+		int getCollection_1482904633_ExceptionCount;
 
 		string executeAsync_983953243_MethodName = "ExecuteAsync(string test)";
 		long executeAsync_983953243_InvokeCount;
@@ -129,7 +131,7 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot()
 		{
-			yield return (getCollection_1226284721_MethodName, getCollection_1226284721_InvokeCount, getCollection_1226284721_InvokeCompletedCount, getCollection_1226284721_ExceptionCount);
+			yield return (getCollection_1482904633_MethodName, getCollection_1482904633_InvokeCount, getCollection_1482904633_InvokeCompletedCount, getCollection_1482904633_ExceptionCount);
 			yield return (executeAsync_983953243_MethodName, executeAsync_983953243_InvokeCount, executeAsync_983953243_InvokeCompletedCount, executeAsync_983953243_ExceptionCount);
 			yield return (getDataAsync_983953243_MethodName, getDataAsync_983953243_InvokeCount, getDataAsync_983953243_InvokeCompletedCount, getDataAsync_983953243_ExceptionCount);
 			yield return (modifyData_229559583_MethodName, modifyData_229559583_InvokeCount, modifyData_229559583_InvokeCompletedCount, modifyData_229559583_ExceptionCount);

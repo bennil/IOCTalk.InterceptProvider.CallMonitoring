@@ -5,7 +5,6 @@
 		<!--<Nullable>enable</Nullable>-->
 		<LangVersion>latest</LangVersion>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 

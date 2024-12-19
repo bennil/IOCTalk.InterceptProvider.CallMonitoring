@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>ioctalk-interception-callmonitoring-insight</id>
-		<version>1.0.1</version>
+		<version>1.0.5</version>
 		<title>ioctalk-insight-webhost</title>
 		<authors>ben</authors>
 		<owners>ben</owners>
@@ -14,7 +14,7 @@
 		<dependencies>
 			<group targetFramework="net8.0">
 				<dependency id="ioctalk-codegen-binary-json-tcp" version="2.4.14" />
-				<dependency id="ioctalk-insight-webhost" version="1.0.4" />
+				<dependency id="ioctalk-insight-webhost" version="1.0.5" />
 			</group>
 		</dependencies>
 	</metadata>

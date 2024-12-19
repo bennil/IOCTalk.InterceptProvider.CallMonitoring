@@ -20,7 +20,7 @@ namespace CallMonitoringSourceGen.TestConsole
 
             var instance2 = (IMyDemoService2)Activator.CreateInstance(type2, mainImplementation);
 
-            instance2.GetCollection(5);
+            instance2.GetCollection(5, out var _);
 
             Console.WriteLine("done");
         }

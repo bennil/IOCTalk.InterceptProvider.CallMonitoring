@@ -8,7 +8,7 @@ namespace CallMonitoringSourceGen.TestConsole.Interface
 {
     public interface IMyDemoService2
     {
-        ICollection GetCollection(int number);
+        ICollection GetCollection(int number, out int test);
 
         Task ExecuteAsync(string test);
 
