@@ -18,7 +18,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
         public SourceGeneratorCallMonitoring()
         {
 #if DEBUG
-            // only when referenced lib is debug compiled 
+            // only when referenced lib is debug compiled
             this.attachDebugger = false;
             this.isVerboseLogging = false;
 #endif
@@ -30,6 +30,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
 
         protected override void AppendInterceptUsings(StringBuilder mainSource, ITypeSymbol interfaceType)
         {
+            mainSource.AppendLine("using System.Diagnostics;");
             mainSource.AppendLine("using IOCTalk.InterceptProvider.CallMonitoring.Common;");
         }
 
@@ -51,6 +52,8 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
 
         protected override void AppendInterceptMethodBeforeNestedCall(StringBuilder methodSource, ITypeSymbol interfaceType, IMethodSymbol method)
         {
+            methodSource.AppendLine($"{MethodLineIntention}long ticksStart = Stopwatch.GetTimestamp();");
+
             methodSource.AppendLine($"{MethodLineIntention}try");
             methodSource.AppendLine($"{MethodLineIntention}{{");
             methodSource.AppendLine($"{MethodLineIntention}    Interlocked.Increment(ref {GetMonitorFieldName(method, MonitoringFieldType.InvokeCount)});");
@@ -67,7 +70,12 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
             methodSource.AppendLine($"{MethodLineIntention}}}");
             methodSource.AppendLine($"{MethodLineIntention}finally");
             methodSource.AppendLine($"{MethodLineIntention}{{");
+            methodSource.AppendLine($"{MethodLineIntention}    long ticksEnd = Stopwatch.GetTimestamp();");
             methodSource.AppendLine($"{MethodLineIntention}    Interlocked.Increment(ref {GetMonitorFieldName(method, MonitoringFieldType.InvokeCompletedCount)});");
+            methodSource.AppendLine($"{MethodLineIntention}    long ticksDuration = ticksEnd - ticksStart;");
+            methodSource.AppendLine($"{MethodLineIntention}    Interlocked.Add(ref {GetMonitorFieldName(method, MonitoringFieldType.ExecTimeTotal)}, ticksDuration);");
+            methodSource.AppendLine($"{MethodLineIntention}    if ({GetMonitorFieldName(method, MonitoringFieldType.ExecTimeMax)} < ticksDuration)");
+            methodSource.AppendLine($"{MethodLineIntention}         {GetMonitorFieldName(method, MonitoringFieldType.ExecTimeMax)} = ticksDuration;");
             methodSource.AppendLine($"{MethodLineIntention}}}");
         }
 
@@ -83,6 +91,9 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
                 mainSource.AppendLine($"{MethodBodyIntention}long {GetMonitorFieldName(m, MonitoringFieldType.InvokeCount)};");
                 mainSource.AppendLine($"{MethodBodyIntention}long {GetMonitorFieldName(m, MonitoringFieldType.InvokeCompletedCount)};");
                 mainSource.AppendLine($"{MethodBodyIntention}int {GetMonitorFieldName(m, MonitoringFieldType.ExceptionCount)};");
+                mainSource.AppendLine($"{MethodBodyIntention}long {GetMonitorFieldName(m, MonitoringFieldType.ExecTimeTotal)};");
+                mainSource.AppendLine($"{MethodBodyIntention}long {GetMonitorFieldName(m, MonitoringFieldType.ExecTimeMax)};");
+
                 mainSource.AppendLine();
             }
 
@@ -95,11 +106,11 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
             mainSource.AppendLine();
 
             mainSource.Append(MethodBodyIntention);
-            mainSource.AppendLine("public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot()");
+            mainSource.AppendLine("public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount, long ExecTimeTotal, long ExecTimeMax)> GetCallMonitoringSnapshot()");
             mainSource.AppendLine($"{MethodBodyIntention}{{");
             foreach (var m in methods)
             {
-                mainSource.AppendLine($"{MethodLineIntention}yield return ({GetMonitorFieldName(m, MonitoringFieldType.MethodName)}, {GetMonitorFieldName(m, MonitoringFieldType.InvokeCount)}, {GetMonitorFieldName(m, MonitoringFieldType.InvokeCompletedCount)}, {GetMonitorFieldName(m, MonitoringFieldType.ExceptionCount)});");
+                mainSource.AppendLine($"{MethodLineIntention}yield return ({GetMonitorFieldName(m, MonitoringFieldType.MethodName)}, {GetMonitorFieldName(m, MonitoringFieldType.InvokeCount)}, {GetMonitorFieldName(m, MonitoringFieldType.InvokeCompletedCount)}, {GetMonitorFieldName(m, MonitoringFieldType.ExceptionCount)}, {GetMonitorFieldName(m, MonitoringFieldType.ExecTimeTotal)}, {GetMonitorFieldName(m, MonitoringFieldType.ExecTimeMax)});");
             }
             mainSource.AppendLine($"{MethodBodyIntention}}}");
         }

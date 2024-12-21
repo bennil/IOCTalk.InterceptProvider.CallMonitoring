@@ -15,5 +15,11 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
         ExceptionCount,
 
         MethodName,
+
+        ExecTimeTotal,
+
+        //ExecTimeMin,
+
+        ExecTimeMax,
     }
 }

@@ -11,7 +11,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Common
         List<ICallMonitoringSource> SourceItems { get; }
 
 
-        IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot();
+        IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount, long ExecTimeTotal, long ExecTimeMax)> GetCallMonitoringSnapshot();
 
     }
 }

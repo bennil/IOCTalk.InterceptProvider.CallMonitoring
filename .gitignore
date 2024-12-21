@@ -361,5 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/CallMonitoringSourceGen.TestConsoleInsight/Gen/IOCTalk.CodeGenerator/IOCTalk.CodeGenerator.IocTalkCodeGenerator
-/CallMonitoringSourceGen.TestConsoleInsight/Gen/IOCTalk.InterceptProvider.CallMonitoring/IOCTalk.InterceptProvider.CallMonitoring.SourceGeneratorCallMonitoring
+/CallMonitoringSourceGen.TestConsoleInsight/Gen/

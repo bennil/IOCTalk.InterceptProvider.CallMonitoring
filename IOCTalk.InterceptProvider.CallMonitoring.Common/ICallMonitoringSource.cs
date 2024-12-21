@@ -12,7 +12,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Common
 
         Exception LastException { get; }
 
-        IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot();
+        IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount, long ExecTimeTotal, long ExecTimeMax)> GetCallMonitoringSnapshot();
 
     }
 }

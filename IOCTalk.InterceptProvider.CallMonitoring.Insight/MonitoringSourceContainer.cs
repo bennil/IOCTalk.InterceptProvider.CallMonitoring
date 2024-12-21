@@ -22,7 +22,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
         public List<ICallMonitoringSource> SourceItems => sourceItems;
 
 
-        public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount)> GetCallMonitoringSnapshot()
+        public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount, long ExecTimeTotal, long ExecTimeMax)> GetCallMonitoringSnapshot()
         {
             foreach (var item in sourceItems)
             {

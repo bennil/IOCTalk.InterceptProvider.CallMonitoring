@@ -113,6 +113,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                             html.AppendLine("<th>Invoke Completed Count</th>");
                             html.AppendLine("<th>Invoke Pending</th>");
                             html.AppendLine("<th>Propagated Exceptions</th>");
+                            WriteExecTimeColumnsHeader(html);
                             html.AppendLine("</tr>");
 
                             foreach (var item in snapshot)
@@ -123,6 +124,9 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                                 html.AppendLine($"<td>{item.InvokeCompletedCount}</td>");
                                 html.AppendLine($"<td>{item.InvokeCount - item.InvokeCompletedCount}</td>");
                                 html.AppendLine($"<td>{item.ExceptionCount}</td>");
+
+                                WriteExecTimeColumns(html, item.ExecTimeTotal, item.ExecTimeMax, item.InvokeCompletedCount);
+
                                 html.AppendLine("</tr>");
                             }
 
@@ -146,6 +150,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                         html.AppendLine("<th>Invoke Completed Count</th>");
                         html.AppendLine("<th>Invoke Pending</th>");
                         html.AppendLine("<th>Propagated Exceptions</th>");
+                        WriteExecTimeColumnsHeader(html);
                         html.AppendLine("</tr>");
 
 
@@ -156,6 +161,8 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                             var invokeCount = snapshot.Sum(s => s.InvokeCount);
                             var invokeCompletedCount = snapshot.Sum(s => s.InvokeCompletedCount);
                             var exceptionCount = snapshot.Sum(s => s.ExceptionCount);
+                            var execTimeTotal = snapshot.Sum(s => s.ExecTimeTotal);
+                            var execTimeMax = snapshot.Max(s => s.ExecTimeMax);
 
                             html.AppendLine("<tr>");
                             html.AppendLine($"<td><a href=\"?{QueryNameService}={srcItem.MonitoringInterface.FullName}&{QueryNameInstanceId}={srcItem.InterceptedServiceObject.GetHashCode()}\">{srcItem.InterceptedServiceObject.GetType().FullName}</a></td>");
@@ -163,6 +170,9 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                             html.AppendLine($"<td>{invokeCompletedCount}</td>");
                             html.AppendLine($"<td>{invokeCount - invokeCompletedCount}</td>");
                             html.AppendLine($"<td>{exceptionCount}</td>");
+
+                            WriteExecTimeColumns(html, execTimeTotal, execTimeMax, invokeCompletedCount);
+
                             html.AppendLine("</tr>");
                         }
 
@@ -175,6 +185,23 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
 
 
             return ValueTask.FromResult<IInsightResponse>(resp);
+        }
+
+        private static void WriteExecTimeColumnsHeader(StringBuilder html)
+        {
+            html.AppendLine("<th>Avg. Execution Time</th>");
+            html.AppendLine("<th>Max. Exec. Time</th>");
+        }
+
+        private static void WriteExecTimeColumns(StringBuilder html, long execTimeTotal, long execTimeMax, long invokeCompletedCount)
+        {
+            long ticksPerExec = 0;
+            if (execTimeTotal > 0)
+                ticksPerExec = execTimeTotal / invokeCompletedCount;
+
+            TimeSpan avgExecTime = TimeSpan.FromTicks(ticksPerExec);
+            html.AppendLine($"<td>{avgExecTime}</td>");
+            html.AppendLine($"<td>{TimeSpan.FromTicks(execTimeMax)}</td>");
         }
     }
 }
