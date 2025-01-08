@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>ioctalk-interception-callmonitoring-insight</id>
-		<version>1.0.7</version>
+		<version>1.0.8</version>
 		<title>ioctalk-insight-webhost</title>
 		<authors>ben</authors>
 		<owners>ben</owners>

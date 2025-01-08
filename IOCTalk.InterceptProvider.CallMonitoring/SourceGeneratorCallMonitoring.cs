@@ -19,7 +19,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
         {
 #if DEBUG
             // only when referenced lib is debug compiled
-            this.attachDebugger = false;
+            this.attachDebugger = true;
             this.isVerboseLogging = false;
 #endif
         }

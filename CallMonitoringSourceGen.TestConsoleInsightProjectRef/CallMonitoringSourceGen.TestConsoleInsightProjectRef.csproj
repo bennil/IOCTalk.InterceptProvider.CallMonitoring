@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="ioctalk-codegen-binary-json-tcp" Version="2.4.14" />
+		<PackageReference Include="ioctalk-insight-webhost" Version="1.0.5" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CallMonitoringSourceGen.TestConsole.Interface\CallMonitoringSourceGen.TestConsole.Interface.csproj" />
+		<ProjectReference Include="..\IOCTalk.InterceptProvider.CallMonitoring.Insight\IOCTalk.InterceptProvider.CallMonitoring.Insight.csproj" />
+		<ProjectReference Include="..\IOCTalk.InterceptProvider.CallMonitoring\IOCTalk.InterceptProvider.CallMonitoring.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+</Project>
