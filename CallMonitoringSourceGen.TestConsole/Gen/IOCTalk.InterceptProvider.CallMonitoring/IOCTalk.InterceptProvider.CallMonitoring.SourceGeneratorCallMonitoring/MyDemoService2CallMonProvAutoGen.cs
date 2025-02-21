@@ -130,19 +130,19 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		Exception? lastException;
 
-		string getCollection_1482904633_MethodName = "GetCollection(int number, int test)";
-		long getCollection_1482904633_InvokeCount;
-		long getCollection_1482904633_InvokeCompletedCount;
-		int getCollection_1482904633_ExceptionCount;
-		long getCollection_1482904633_ExecTimeTotal;
-		long getCollection_1482904633_ExecTimeMax;
-
 		string executeAsync_983953243_MethodName = "ExecuteAsync(string test)";
 		long executeAsync_983953243_InvokeCount;
 		long executeAsync_983953243_InvokeCompletedCount;
 		int executeAsync_983953243_ExceptionCount;
 		long executeAsync_983953243_ExecTimeTotal;
 		long executeAsync_983953243_ExecTimeMax;
+
+		string getCollection_1482904633_MethodName = "GetCollection(int number, int test)";
+		long getCollection_1482904633_InvokeCount;
+		long getCollection_1482904633_InvokeCompletedCount;
+		int getCollection_1482904633_ExceptionCount;
+		long getCollection_1482904633_ExecTimeTotal;
+		long getCollection_1482904633_ExecTimeMax;
 
 		string getDataAsync_983953243_MethodName = "GetDataAsync(string test)";
 		long getDataAsync_983953243_InvokeCount;
@@ -164,8 +164,8 @@ namespace CallMonitoringSourceGen.TestConsole
 
 		public IEnumerable<(string MethodName, long InvokeCount, long InvokeCompletedCount, int ExceptionCount, long ExecTimeTotal, long ExecTimeMax)> GetCallMonitoringSnapshot()
 		{
-			yield return (getCollection_1482904633_MethodName, getCollection_1482904633_InvokeCount, getCollection_1482904633_InvokeCompletedCount, getCollection_1482904633_ExceptionCount, getCollection_1482904633_ExecTimeTotal, getCollection_1482904633_ExecTimeMax);
 			yield return (executeAsync_983953243_MethodName, executeAsync_983953243_InvokeCount, executeAsync_983953243_InvokeCompletedCount, executeAsync_983953243_ExceptionCount, executeAsync_983953243_ExecTimeTotal, executeAsync_983953243_ExecTimeMax);
+			yield return (getCollection_1482904633_MethodName, getCollection_1482904633_InvokeCount, getCollection_1482904633_InvokeCompletedCount, getCollection_1482904633_ExceptionCount, getCollection_1482904633_ExecTimeTotal, getCollection_1482904633_ExecTimeMax);
 			yield return (getDataAsync_983953243_MethodName, getDataAsync_983953243_InvokeCount, getDataAsync_983953243_InvokeCompletedCount, getDataAsync_983953243_ExceptionCount, getDataAsync_983953243_ExecTimeTotal, getDataAsync_983953243_ExecTimeMax);
 			yield return (modifyData_229559583_MethodName, modifyData_229559583_InvokeCount, modifyData_229559583_InvokeCompletedCount, modifyData_229559583_ExceptionCount, modifyData_229559583_ExecTimeTotal, modifyData_229559583_ExecTimeMax);
 		}

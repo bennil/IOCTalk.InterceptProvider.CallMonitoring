@@ -19,7 +19,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
         {
 #if DEBUG
             // only when referenced lib is debug compiled
-            this.attachDebugger = true;
+            this.attachDebugger = false;
             this.isVerboseLogging = false;
 #endif
         }
@@ -52,7 +52,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
 
         protected override void AppendInterceptMethodBeforeNestedCall(StringBuilder methodSource, ITypeSymbol interfaceType, IMethodSymbol method)
         {
-            methodSource.AppendLine($"{MethodLineIntention}long ticksStart = Stopwatch.GetTimestamp();");
+            methodSource.AppendLine($"{MethodLineIntention}long timestampStart = Stopwatch.GetTimestamp();");
 
             methodSource.AppendLine($"{MethodLineIntention}try");
             methodSource.AppendLine($"{MethodLineIntention}{{");
@@ -70,12 +70,11 @@ namespace IOCTalk.InterceptProvider.CallMonitoring
             methodSource.AppendLine($"{MethodLineIntention}}}");
             methodSource.AppendLine($"{MethodLineIntention}finally");
             methodSource.AppendLine($"{MethodLineIntention}{{");
-            methodSource.AppendLine($"{MethodLineIntention}    long ticksEnd = Stopwatch.GetTimestamp();");
+            methodSource.AppendLine($"{MethodLineIntention}    TimeSpan duration = Stopwatch.GetElapsedTime(timestampStart);");
             methodSource.AppendLine($"{MethodLineIntention}    Interlocked.Increment(ref {GetMonitorFieldName(method, MonitoringFieldType.InvokeCompletedCount)});");
-            methodSource.AppendLine($"{MethodLineIntention}    long ticksDuration = ticksEnd - ticksStart;");
-            methodSource.AppendLine($"{MethodLineIntention}    Interlocked.Add(ref {GetMonitorFieldName(method, MonitoringFieldType.ExecTimeTotal)}, ticksDuration);");
-            methodSource.AppendLine($"{MethodLineIntention}    if ({GetMonitorFieldName(method, MonitoringFieldType.ExecTimeMax)} < ticksDuration)");
-            methodSource.AppendLine($"{MethodLineIntention}         {GetMonitorFieldName(method, MonitoringFieldType.ExecTimeMax)} = ticksDuration;");
+            methodSource.AppendLine($"{MethodLineIntention}    Interlocked.Add(ref {GetMonitorFieldName(method, MonitoringFieldType.ExecTimeTotal)}, duration.Ticks);");
+            methodSource.AppendLine($"{MethodLineIntention}    if ({GetMonitorFieldName(method, MonitoringFieldType.ExecTimeMax)} < duration.Ticks)");
+            methodSource.AppendLine($"{MethodLineIntention}         {GetMonitorFieldName(method, MonitoringFieldType.ExecTimeMax)} = duration.Ticks;");
             methodSource.AppendLine($"{MethodLineIntention}}}");
         }
 
