@@ -193,6 +193,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                     List<TopAggregate<long>> topExceptionList = new(topCount + 1);
                     List<TopAggregate<long>> topAvgExecTimeList = new(topCount + 1);
                     List<TopAggregate<long>> topMaxExecTimeList = new(topCount + 1);
+                    List<TopAggregate<long>> topTotalExecTimeList = new(topCount + 1);
 
                     foreach (var monitorSrc in callMonitoringHost.MonitorSources)
                     {
@@ -207,13 +208,15 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
                             ProcessTopAggregate<long>(topCount, topAvgExecTimeList, monitorSrc, si, avgExecTimeTicks);
 
                             ProcessTopAggregate<long>(topCount, topMaxExecTimeList, monitorSrc, si, si.ExecTimeMax);
+                            ProcessTopAggregate<long>(topCount, topTotalExecTimeList, monitorSrc, si, si.ExecTimeTotal);
                         }
                     }
 
                     OutputTopList(html, topCount, "Method Invoke", "Invoke Count", topInvokeList);
                     OutputTopList(html, topCount, "Propagated Exception Count", "Exception Count", topExceptionList);
                     OutputTopList(html, topCount, "Average Execution Time", "Exec. Time Avg.", topAvgExecTimeList, v => TimeSpan.FromTicks(v).ToString());
-                    OutputTopList(html, topCount, "Max. Execution Time", "Max. Time Avg.", topMaxExecTimeList, v => TimeSpan.FromTicks(v).ToString());
+                    OutputTopList(html, topCount, "Max. Execution Time", "Max. Time", topMaxExecTimeList, v => TimeSpan.FromTicks(v).ToString());
+                    OutputTopList(html, topCount, "Total Execution Time", "Total Time", topTotalExecTimeList, v => TimeSpan.FromTicks(v).ToString());
                 }
             }
             resp.HtmlData = html.ToString();
@@ -299,6 +302,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
         {
             html.AppendLine("<th>Avg. Execution Time</th>");
             html.AppendLine("<th>Max. Exec. Time</th>");
+            html.AppendLine("<th>Total Exec. Time</th>");
         }
 
         private static void WriteExecTimeColumns(StringBuilder html, long execTimeTotal, long execTimeMax, long invokeCompletedCount)
@@ -308,6 +312,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
             TimeSpan avgExecTime = TimeSpan.FromTicks(ticksPerExec);
             html.AppendLine($"<td>{avgExecTime}</td>");
             html.AppendLine($"<td>{TimeSpan.FromTicks(execTimeMax)}</td>");
+            html.AppendLine($"<td>{TimeSpan.FromTicks(execTimeTotal)}</td>");
         }
 
         private static long CalculateAverageExecTime(long execTimeTotal, long invokeCompletedCount)
