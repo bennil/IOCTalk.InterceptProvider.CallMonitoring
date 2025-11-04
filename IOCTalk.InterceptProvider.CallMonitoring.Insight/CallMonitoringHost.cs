@@ -15,7 +15,7 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
 
         public IReadOnlyList<ICallMonitoringSourceContainer> MonitorSources => sourceItems.AsReadOnly();
 
-
+        readonly static CallMonComparer callMonComparer = new();
 
         public void RegisterSource(ICallMonitoringSource source)
         {
@@ -24,7 +24,14 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
             if (sourceItemsDic.TryGetValue(containerKey, out container) == false)
             {
                 container = new MonitoringSourceContainer(source.MonitoringInterface);
-                sourceItems.Add(container);
+
+                // insert sorted
+                int insertIndex = sourceItems.BinarySearch(container, callMonComparer);
+                if (insertIndex < 0)
+                    sourceItems.Insert(~insertIndex, container);
+                else
+                    sourceItems.Add(container);
+
                 sourceItemsDic.Add(containerKey, container);
             }
             container.SourceItems.Add(source);
@@ -44,6 +51,16 @@ namespace IOCTalk.InterceptProvider.CallMonitoring.Insight
             return sourceItemsDic[interfaceName];
         }
 
-        
+        // Comparer to sort ICallMonitoringSourceContainer list
+        internal class CallMonComparer : IComparer<ICallMonitoringSourceContainer>
+        {
+            public int Compare(ICallMonitoringSourceContainer x, ICallMonitoringSourceContainer y)
+            {
+                return string.Compare(x?.MonitoringInterface?.FullName ?? string.Empty, y?.MonitoringInterface?.FullName ?? string.Empty);
+            }
+        }
+
+
     }
+
 }
